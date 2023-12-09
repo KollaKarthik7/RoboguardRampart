@@ -1,2 +1,3 @@
 # RoboguardRampart
-Android / PC Game.
+PC Game.
+Developed by Kolla Karthik.
