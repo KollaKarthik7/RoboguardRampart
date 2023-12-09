@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     GameObject gameManager;
 
     public float moveSpeed;
+    float speedAdder;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        float speedAdder = gameManager.GetComponent<ScoreManager>().elapsedTime / 30f;
+        speedAdder = gameManager.GetComponent<ScoreManager>().elapsedTime / 10f;
         if(speedAdder > 7)
         {
             speedAdder = 7f;

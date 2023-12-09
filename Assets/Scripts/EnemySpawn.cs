@@ -12,11 +12,13 @@ public class EnemySpawn : MonoBehaviour
 
     GameObject enemy;
     Transform selectedPoint;
-    bool spawned;
     float spawnTimerSubtractor;
-    int enemySize;
+    public int enemySize;
     int maxEnemySize;
     ScoreManager score;
+    bool spawned;
+    bool increased;
+    bool spawnIncreased;
 
     private void Start()
     {
@@ -28,15 +30,21 @@ public class EnemySpawn : MonoBehaviour
 
     private void Update()
     {
-        spawnTimerSubtractor = (gameManager.GetComponent<ScoreManager>().elapsedTime / 30f) * 0.25f;
+        if(!spawnIncreased)
+        {
+            spawnIncreased = true;
+            Invoke("DecreaseSpawnTime", 30f);
+        }
+        
         if (spawnTimerSubtractor > 1.2f)
         {
             spawnTimerSubtractor = 1.2f;
         }
 
-        if(score.elapsedTime % 30 == 0)
+        if(!increased)
         {
-            enemySize++;
+            increased = true;
+            Invoke("EnemySizeIncreaser", 60f);
         }
 
         if(enemySize > maxEnemySize)
@@ -48,7 +56,19 @@ public class EnemySpawn : MonoBehaviour
         {
             spawned = true;
             Spawn();
-        }
+        }       
+    }
+
+    public void EnemySizeIncreaser()
+    {
+        enemySize++;
+        increased = false;
+    }
+
+    public void DecreaseSpawnTime()
+    {
+        spawnTimerSubtractor += 0.2f;
+        spawnIncreased = false;
     }
 
     public void Spawn()

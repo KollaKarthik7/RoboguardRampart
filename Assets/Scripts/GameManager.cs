@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject teleportEffect;
 
     bool environmentSpawned;
+    bool paused;
 
     public int environmentNumber;
     public int tempNumber;
@@ -52,6 +53,18 @@ public class GameManager : MonoBehaviour
             environmentSpawned = true;
             tempNumber = environmentNumber;
             SpawnEnvironment();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape) && !paused)
+        {
+            paused = true;
+            PauseGame();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+            paused = false;
+            ResumeGame();
         }
     }
 

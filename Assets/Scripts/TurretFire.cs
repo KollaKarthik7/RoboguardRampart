@@ -40,23 +40,6 @@ public class TurretFire : MonoBehaviour
     void LookEnemy()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if(touch.phase == TouchPhase.Began)
-            {
-                Ray ray1 = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit1;
-
-                if (Physics.Raycast(ray1, out hit1) && hit1.collider.CompareTag("Enemy"))
-                {
-                    turretHead.transform.LookAt(hit1.collider.gameObject.transform);
-                    Shoot();
-                }
-            }
-        }
-
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Enemy"))
@@ -69,28 +52,6 @@ public class TurretFire : MonoBehaviour
     void Shoot()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                Ray ray1 = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit1;
-
-                if (Physics.Raycast(ray1, out hit1))
-                {
-                    Debug.Log(hit1.collider.gameObject.name);
-                    hit1.collider.GetComponent<EnemyHealth>().Damage(damage + damageAdder);
-
-                    if (hit1.collider.GetComponent<EnemyHealth>().currenHealth <= 0f)
-                    {
-                        GameObject.Find("GameManager").GetComponent<ScoreManager>().score++;
-                    }
-                }
-            }
-        }
-
         RaycastHit hit;
 
         soundManager.source.PlayOneShot(soundManager.turretSound);
